@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Logout{% endblock %}
+
+{% block content %}
+<h2>Logout</h2>
+<button id="logout-btn" class="btn btn-danger">Logout</button>
+
+<script>
+    document.getElementById("logout-btn").addEventListener("click", function () {
+        const token = localStorage.getItem("accessToken");
+        if (token) {
+            // Optional: Notify the backend of logout
+            axios.post("/api/logout/", { token })
+                .then(() => {
+                    localStorage.removeItem("accessToken");
+                    localStorage.removeItem("refreshToken");
+                    alert("Logout successful!");
+                    window.location.href = "/login/";
+                })
+                .catch(handleApiError);
+        } else {
+            alert("You are not logged in.");
+        }
+    });
+</script>
+{% endblock %}
