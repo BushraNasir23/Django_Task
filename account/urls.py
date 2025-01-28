@@ -7,14 +7,21 @@ from .views import (
     RegisterView,
     LogoutView,
     TimeRestrictedTokenObtainPairView,
+    VerifySignupEmail,
 )
-from . import views
+
 
 urlpatterns = [
-    path('register/', RegisterView.as_view(), name='register'),
+    path("register/", RegisterView.as_view(), name="register"),
     # path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('login/', TimeRestrictedTokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('activate/<uidb64>/<token>/',views.activate,name='activate'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path(
+        "login/", TimeRestrictedTokenObtainPairView.as_view(), name="token_obtain_pair"
+    ),
+    path(
+        "verify_signup_email/<str:email>/<str:code>",
+        VerifySignupEmail.as_view(),
+        name="register",
+    ),
+    path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("logout/", LogoutView.as_view(), name="logout"),
 ]

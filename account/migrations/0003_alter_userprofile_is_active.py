@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('account', '0002_revokedtoken'),
+        ("account", "0002_revokedtoken"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='userprofile',
-            name='is_active',
+            model_name="userprofile",
+            name="is_active",
             field=models.BooleanField(default=False),
         ),
     ]
