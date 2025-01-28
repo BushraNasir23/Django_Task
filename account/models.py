@@ -21,7 +21,7 @@ class UserProfile(AbstractUser):
     def __str__(self):
         return self.username
 
-
+#generate temporay code for email validation
 class EmailCode(models.Model):
     mail_code = models.CharField(max_length=4)
     profile = models.ForeignKey(

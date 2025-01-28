@@ -149,39 +149,6 @@ class ProjectUpdateView(generics.UpdateAPIView):
         return super().update(request, *args, **kwargs)
 
 
-# class ApproveTaskView(APIView):
-#     permission_classes = [IsAuthenticated]
-
-#     def post(self, request, task_id):
-#         user = request.user
-
-#         # Check user's role (optional, modify based on your role structure)
-#         if user.role != 'Manager':  # Assuming user role is stored in a field
-#             return Response({'error': 'You do not have permission to approve tasks.'}, status=403)
-
-#         # Get the task object
-#         task = get_object_or_404(Task, id=task_id)
-
-#         if task.status != 'Pending Approval':
-#             return Response({'error': 'This task cannot be approved as it is not pending approval.'}, status=400)
-
-#         # Temporarily save task data in Redis
-#         task_data = {
-#             'title': task.title,
-#             'description': task.description,
-#             'status': task.status,
-#             'created_at': str(task.created_at)
-#         }
-#         cache.set(f'task:{task_id}', task_data, timeout=300)  # Store in Redis for 5 minutes
-
-#         # Update task status to approved
-#         task.status = 'Approved'
-#         task.save()
-
-#         # Schedule the Celery task to save the task in the main database after 5 minutes
-#         save_task_to_db.apply_async((task.id,), countdown=300)  # 5-minute delay
-
-#         return Response({'message': 'Task has been approved and will be saved in 5 minutes.'}, status=200)
 
 
 class ApproveTaskView(APIView):
